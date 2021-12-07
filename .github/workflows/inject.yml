@@ -1,0 +1,25 @@
+name: Update / Inject Pipeline Action.
+
+on:
+    pull_request:
+        types: [closed]
+        branches:
+            - prod
+jobs:
+    build:
+        if: github.event.pull_request.merged == true
+        name: Deploy to Production
+        runs-on: ubuntu-latest
+        env:
+            githubPAT: ${{ secrets.GITHUB_TOKEN }}
+            commitBranch: update-pipeline
+            prDescription: "gitlab-ci-pipeline-action"
+        continue-on-error: false
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  ref: prod
+            - name: Grab Topics by Folder
+              run: |
+                  echo "messageToPrint = ${{ secrets.messageToPrint }}" > .env
+                  chmod +x ./envVarPlayground
