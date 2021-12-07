@@ -11,7 +11,7 @@ jobs:
         name: Deploy to Production
         runs-on: ubuntu-latest
         env:
-            githubPAT: ${{ secrets.GITHUB_TOKEN }}
+            githubPAT: ${{ secrets.MESSAGETOPRINT }}
             commitBranch: update-pipeline
             prDescription: "gitlab-ci-pipeline-action"
         continue-on-error: false
